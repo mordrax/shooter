@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController_MVP : MonoBehaviour {
+public class PlayerController_MVP : MonoBehaviour
+{
 
     public float speed;
     public float tilt;
@@ -15,7 +16,7 @@ public class PlayerController_MVP : MonoBehaviour {
     {
 
     }
-    
+
     void Update()
     {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
@@ -26,14 +27,16 @@ public class PlayerController_MVP : MonoBehaviour {
         }
     }
 
-// Update is called once per frame
-void FixedUpdate ()
+    // Update is called once per frame
+    void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         GetComponent<Rigidbody>().velocity = movement * speed;
+
+        var boundary = new Boundary();
 
         GetComponent<Rigidbody>().position = new Vector3
         (
@@ -44,14 +47,12 @@ void FixedUpdate ()
 
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
     }
+}
 
-    void Boundary()
+    public class Boundary
     {
         Vector3 origin = Camera.main.ViewportToScreenPoint(new Vector3(0.25F, 0.1F, 0));
         Vector3 extent = Camera.main.ViewportToScreenPoint(new Vector3(0.5F, 0.2F, 0));
         
         public float xMin, xMax, zMin, zMax;
     }
-
-
-}
