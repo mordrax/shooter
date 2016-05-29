@@ -19,7 +19,7 @@ public class PlayerController_MVP : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("P1_Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -30,8 +30,8 @@ public class PlayerController_MVP : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("P1_Horizontal");
+        float moveVertical = Input.GetAxis("P1_Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         GetComponent<Rigidbody>().velocity = movement * speed;
@@ -51,8 +51,17 @@ public class PlayerController_MVP : MonoBehaviour
 
     public class Boundary
     {
-        Vector3 origin = Camera.main.ViewportToScreenPoint(new Vector3(0.25F, 0.1F, 0));
-        Vector3 extent = Camera.main.ViewportToScreenPoint(new Vector3(0.5F, 0.2F, 0));
-        
         public float xMin, xMax, zMin, zMax;
+        Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, 0));
+        Vector3 extent = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.6f, 0));
+
+        void CalculateBoundary()
+        {
+        xMin = origin.x;
+        xMax = extent.x;
+        zMin = origin.z;
+        zMax = extent.z;
+        }
+               
     }
+ 
