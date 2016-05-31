@@ -55,7 +55,15 @@ public class PlayerController_MVP : MonoBehaviour
         Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, 0));
         Vector3 extent = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.6f, 0));
 
-        void CalculateBoundary()
+    /* - camera clamp from unity forums - try to incorporate?
+         void Update() {
+         Vector3 pos = Camera.main.WorldToViewportPoint (transform.position);
+         pos.x = Mathf.Clamp01(pos.x);
+         pos.y = Mathf.Clamp01(pos.y);
+         transform.position = Camera.main.ViewportToWorldPoint(pos);
+     }
+    */
+    void CalculateBoundary()
         {
         xMin = origin.x;
         xMax = extent.x;
