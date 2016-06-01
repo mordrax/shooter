@@ -50,7 +50,7 @@ public class PlayerController_MVP : MonoBehaviour
         Vector3 player1 = GameObject.FindGameObjectWithTag("Player").transform.position;
         float distance = Camera.main.transform.position.y - player1.y;
 
-        Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, distance));
+        Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.08f, distance));
         Vector3 extent = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.6f, distance));
         float xMin = origin.x;
         float xMax = extent.x;
