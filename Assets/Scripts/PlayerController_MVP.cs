@@ -6,7 +6,7 @@ public class PlayerController_MVP : MonoBehaviour
 
     public float speed;
     public float tilt;
-    public GameObject shot;
+    public GameObject Bullet;
     public Transform shotSpawn;
     public float fireRate;
     private float nextFire;
@@ -22,7 +22,8 @@ public class PlayerController_MVP : MonoBehaviour
         if (Input.GetButton("P1_Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            //how to manipulate the rotation so bullet is showing correctly?
+            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
             //GetComponent<AudioSource>().Play();
         }
     }
