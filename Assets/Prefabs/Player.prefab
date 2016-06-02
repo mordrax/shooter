@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tilt: 0
-  shot: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
+  Bullet: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
   shotSpawn: {fileID: 487514}
   fireRate: 1
 --- !u!198 &19827238
