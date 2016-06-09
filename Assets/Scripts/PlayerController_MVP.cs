@@ -1,7 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+public class Engine
+{
+    public static float THRUST_DURATION = 2;
+    public static float COOLDOWN = 4;
+    public static float THRUST_POWER = 5;
 
+    public float LastThrust;
+    public bool isThrusting;
+    public bool isCoolingDown;
+    
+    public void Update ()
+    {
+        isThrusting = ((Time.time - LastThrust) < Engine.THRUST_DURATION);
+
+        isCoolingDown = ((Time.time - LastThrust) < Engine.COOLDOWN);
+    }
+}
 public class PlayerController_MVP : MonoBehaviour
 {
 
@@ -9,33 +25,39 @@ public class PlayerController_MVP : MonoBehaviour
     public float tilt;
     public float P1_firerate_W1;
     public float P1_firerate_W2;
+
     public float P1_shieldrate;
-    public float P1_enginethrust;
-    public float P1_enginerate;
     public float P1_shipmass;
     public GameObject Bullet;
     public Transform shotSpawn;
-    private float P1_nextfire_W1;
-    private float P1_nextfire_W2;
-    private float P1_Wswitch;
+    float P1_nextfire_W1;
+    float P1_nextfire_W2;
+    float P1_Wswitch;
+
+    Engine engine;
     
+
 
     // Use this for initialization
     void Start()
-    {}
+    {
+        engine = new Engine();
+    }
 
     void Update()
-    {}
+    {
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        engine.Update();
         P1_Move();
         CalculateBoundary();
         checkFire_W1();
         checkFire_W2();
         checkShield();
-        checkEngine();
         checkSwitch();
     }
 
@@ -43,12 +65,11 @@ public class PlayerController_MVP : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis("P1_Horizontal");
         float moveVertical = Input.GetAxis("P1_Vertical");
-
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        if (Time.time > P1_enginerate)
+        if (engine.isThrusting)
         {
-            GetComponent<Rigidbody>().velocity = (movement * speed * P1_enginethrust)/ P1_shipmass;
+            GetComponent<Rigidbody>().velocity = (movement * speed * Engine.THRUST_POWER)/ P1_shipmass;
         } else
         {
             GetComponent<Rigidbody>().velocity = (movement * speed)/P1_shipmass;
