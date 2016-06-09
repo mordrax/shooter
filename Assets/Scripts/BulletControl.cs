@@ -10,6 +10,7 @@ public class BulletControl : MonoBehaviour {
 	void Start ()
     {
         GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        GetComponent<Rigidbody>().transform.Rotate(new Vector3(180, 90, 90));
     }
 	
 	// Update is called once per frame
