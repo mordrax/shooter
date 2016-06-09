@@ -13,6 +13,7 @@ GameObject:
   - 54: {fileID: 5405370}
   - 64: {fileID: 6405292}
   - 114: {fileID: 11413932}
+  - 114: {fileID: 11419262}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -134,7 +135,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: f36c72c738c55f741afcd674a0b1245f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
+  m_UseLightProbes: 0
   m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
@@ -194,9 +195,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tilt: 0
+  P1_firerate_W1: 2
+  P1_firerate_W2: 2
+  P1_shieldrate: 3
+  P1_enginethrust: 5
+  P1_enginerate: 2
+  P1_shipmass: 1
   Bullet: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
   shotSpawn: {fileID: 487514}
-  fireRate: 1
+--- !u!114 &11419262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c97c58bce321049a23f79bd363a972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &19827238
 ParticleSystem:
   m_ObjectHideFlags: 1

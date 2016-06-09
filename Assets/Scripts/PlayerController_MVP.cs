@@ -1,38 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController_MVP : MonoBehaviour
 {
 
     public float speed;
     public float tilt;
+    public float P1_firerate_W1;
+    public float P1_firerate_W2;
+    public float P1_shieldrate;
+    public float P1_enginethrust;
+    public float P1_enginerate;
+    public float P1_shipmass;
     public GameObject Bullet;
     public Transform shotSpawn;
-    public float fireRate;
-    private float nextFire;
+    private float P1_nextfire_W1;
+    private float P1_nextfire_W2;
+    private float P1_Wswitch;
+    
 
     // Use this for initialization
     void Start()
-    {
-
-    }
+    {}
 
     void Update()
-    {
-        if (Input.GetButton("P1_Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            //how to manipulate the rotation so bullet is showing correctly?
-            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
-            //GetComponent<AudioSource>().Play();
-        }
-    }
+    {}
 
     // Update is called once per frame
     void FixedUpdate()
     {
         P1_Move();
         CalculateBoundary();
+        checkFire_W1();
+        checkFire_W2();
+        checkShield();
+        checkEngine();
+        checkSwitch();
     }
 
     void P1_Move()
@@ -41,7 +45,14 @@ public class PlayerController_MVP : MonoBehaviour
         float moveVertical = Input.GetAxis("P1_Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        GetComponent<Rigidbody>().velocity = movement * speed;
+
+        if (Time.time > P1_enginerate)
+        {
+            GetComponent<Rigidbody>().velocity = (movement * speed * P1_enginethrust)/ P1_shipmass;
+        } else
+        {
+            GetComponent<Rigidbody>().velocity = (movement * speed)/P1_shipmass;
+        }
 
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
     }
@@ -65,5 +76,40 @@ public class PlayerController_MVP : MonoBehaviour
             Mathf.Clamp(GetComponent<Rigidbody>().position.z, zMin, zMax)
         );
     }
+
+    void checkFire_W1()
+    {
+        if (Input.GetButton("P1_Fire1") && Time.time > P1_nextfire_W1)
+        {
+            P1_nextfire_W1 = Time.time + P1_firerate_W1;
+            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
+            //GetComponent<AudioSource>().Play();
+        }
+
+    }
+
+    void checkFire_W2()
+    {
+        if (Input.GetButton("P1_Fire2") && Time.time > P1_nextfire_W1)
+        {
+            P1_nextfire_W2 = Time.time + P1_firerate_W2;
+            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
+            //GetComponent<AudioSource>().Play();
+        }
+
+    }
+
+    void checkShield()
+    {
+
+    }
+    void checkEngine()
+    {
+
+    }
+    void checkSwitch()
+    {
+    }
+
 }
  
