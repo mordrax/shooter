@@ -2,24 +2,6 @@
 using System.Collections.Generic;
 using Assets.Scripts;
 
-public class Engine
-{
-    public static float THRUST_DURATION = 2;
-    public static float COOLDOWN = 4;
-    public static float THRUST_POWER = 5;
-
-    public float LastThrust;
-    public bool isThrusting;
-    public bool isCoolingDown;
-    
-    public void Update ()
-    {
-        isThrusting = ((Time.time - LastThrust) < Engine.THRUST_DURATION);
-
-        isCoolingDown = ((Time.time - LastThrust) < Engine.COOLDOWN);
-    }
-}
-
 public class PlayerController_MVP : MonoBehaviour
 {
 
@@ -32,6 +14,7 @@ public class PlayerController_MVP : MonoBehaviour
     public float P1_shipmass;
     public Transform playerTransform;
     public GameObject bullet;
+    public GameObject self;
     float P1_nextfire_W1;
     float P1_nextfire_W2;
     float P1_Wswitch;
@@ -50,7 +33,7 @@ public class PlayerController_MVP : MonoBehaviour
         weapons = new Dictionary<int, Weapon>();
         
         weapons.Add(0, new Weapon(playerTransform, bullet));
-        weapons.Add(1, new Weapon(playerTransform, bullet)); 
+        weapons.Add(1, new Weapon(playerTransform, bullet, new WellOiledRecoilPart())); 
     }
 
     void Update()
