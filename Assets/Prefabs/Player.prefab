@@ -198,11 +198,9 @@ MonoBehaviour:
   P1_firerate_W1: 2
   P1_firerate_W2: 2
   P1_shieldrate: 3
-  P1_enginethrust: 5
-  P1_enginerate: 2
   P1_shipmass: 1
-  Bullet: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
-  shotSpawn: {fileID: 487514}
+  playerTransform: {fileID: 487514}
+  bullet: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
 --- !u!114 &11419262
 MonoBehaviour:
   m_ObjectHideFlags: 1

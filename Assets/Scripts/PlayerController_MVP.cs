@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
+using System.Collections.Generic;
+using Assets.Scripts;
+
 public class Engine
 {
     public static float THRUST_DURATION = 2;
@@ -18,6 +19,7 @@ public class Engine
         isCoolingDown = ((Time.time - LastThrust) < Engine.COOLDOWN);
     }
 }
+
 public class PlayerController_MVP : MonoBehaviour
 {
 
@@ -25,23 +27,30 @@ public class PlayerController_MVP : MonoBehaviour
     public float tilt;
     public float P1_firerate_W1;
     public float P1_firerate_W2;
-
+    
     public float P1_shieldrate;
     public float P1_shipmass;
-    public GameObject Bullet;
-    public Transform shotSpawn;
+    public Transform playerTransform;
+    public GameObject bullet;
     float P1_nextfire_W1;
     float P1_nextfire_W2;
     float P1_Wswitch;
 
-    Engine engine;
-    
+    private int currentPrimaryWeapon = 0;
+    private int currentSecondaryWeapon = 1;
 
+    Engine engine;
+    Dictionary<int, Weapon> weapons;
+    
 
     // Use this for initialization
     void Start()
     {
         engine = new Engine();
+        weapons = new Dictionary<int, Weapon>();
+        
+        weapons.Add(0, new Weapon(playerTransform, bullet));
+        weapons.Add(1, new Weapon(playerTransform, bullet)); 
     }
 
     void Update()
@@ -100,24 +109,14 @@ public class PlayerController_MVP : MonoBehaviour
 
     void checkFire_W1()
     {
-        if (Input.GetButton("P1_Fire1") && Time.time > P1_nextfire_W1)
-        {
-            P1_nextfire_W1 = Time.time + P1_firerate_W1;
-            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
-            //GetComponent<AudioSource>().Play();
-        }
-
+        if (Input.GetButton("P1_Fire1"))
+            weapons[this.currentPrimaryWeapon].Fire();
     }
 
     void checkFire_W2()
     {
-        if (Input.GetButton("P1_Fire2") && Time.time > P1_nextfire_W1)
-        {
-            P1_nextfire_W2 = Time.time + P1_firerate_W2;
-            Instantiate(Bullet, shotSpawn.position, shotSpawn.rotation);
-            //GetComponent<AudioSource>().Play();
-        }
-
+        if (Input.GetButton("P1_Fire2"))
+            weapons[this.currentSecondaryWeapon].Fire();
     }
 
     void checkShield()
