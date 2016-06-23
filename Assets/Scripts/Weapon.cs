@@ -1,5 +1,4 @@
 ﻿
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -17,7 +16,7 @@ namespace Assets.Scripts
             var weaponReadyTime = LastFire + Cooldown;
             if (weaponReadyTime >= Time.time)
                 return;
-            
+
             Instantiate(bullet, origin.position, origin.rotation);
             LastFire = Time.time;
         }
@@ -29,4 +28,5 @@ namespace Assets.Scripts
             LastFire = Time.time;
         }
     }
+
 }
