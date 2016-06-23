@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 using Assets.Scripts;
 
@@ -14,17 +15,19 @@ public class PlayerController_MVP : MonoBehaviour
     public float P1_shipmass;
     public Transform playerTransform;
     public GameObject bullet;
-    public GameObject self;
+    public GameObject shield;
     float P1_nextfire_W1;
     float P1_nextfire_W2;
     float P1_Wswitch;
 
     private int currentPrimaryWeapon = 0;
     private int currentSecondaryWeapon = 1;
+    private int currentPrimaryShield = 0;
 
     Engine engine;
     Dictionary<int, Weapon> weapons;
-    
+    Dictionary<int, Shield> shields;
+
 
     // Use this for initialization
     void Start()
@@ -33,7 +36,14 @@ public class PlayerController_MVP : MonoBehaviour
         weapons = new Dictionary<int, Weapon>();
         
         weapons.Add(0, new Weapon(playerTransform, bullet));
-        weapons.Add(1, new Weapon(playerTransform, bullet, new WellOiledRecoilPart())); 
+        weapons.Add(1, new Weapon(playerTransform, bullet));
+
+        shields = new Dictionary<int, Shield>();
+
+        shields.Add(0, new Shield(playerTransform, shield));
+        shields.Add(1, new Shield(playerTransform, shield));
+
+
     }
 
     void Update()
@@ -44,7 +54,6 @@ public class PlayerController_MVP : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        engine.Update();
         P1_Move();
         CalculateBoundary();
         checkFire_W1();
@@ -93,18 +102,22 @@ public class PlayerController_MVP : MonoBehaviour
     void checkFire_W1()
     {
         if (Input.GetButton("P1_Fire1"))
+            Console.WriteLine("P1_Fire1");
             weapons[this.currentPrimaryWeapon].Fire();
     }
 
     void checkFire_W2()
     {
         if (Input.GetButton("P1_Fire2"))
-            weapons[this.currentSecondaryWeapon].Fire();
+            Console.WriteLine("P1_Fire1");
+        weapons[this.currentSecondaryWeapon].Fire();
     }
 
     void checkShield()
     {
-
+        if (Input.GetButton("P1_Shield"))
+            Console.WriteLine("P1_Fire1");
+        shields[this.currentPrimaryShield].Fire();
     }
     void checkEngine()
     {
@@ -113,6 +126,5 @@ public class PlayerController_MVP : MonoBehaviour
     void checkSwitch()
     {
     }
-
 }
  
