@@ -12,8 +12,8 @@ public class Engine
     public float LastThrust;
     public bool isThrusting;
     public bool isCoolingDown;
-    
-    public void Update ()
+
+    public void Update()
     {
         isThrusting = ((Time.time - LastThrust) < Engine.THRUST_DURATION);
 
@@ -28,7 +28,7 @@ public class PlayerController_MVP : MonoBehaviour
     public float tilt;
     public float P1_firerate_W1;
     public float P1_firerate_W2;
-    
+
     public float P1_shieldrate;
     public float P1_shipmass;
     public Transform playerTransform;
@@ -52,15 +52,21 @@ public class PlayerController_MVP : MonoBehaviour
     {
         engine = new Engine();
         weapons = new Dictionary<int, Weapon>();
-        
-        weapons.Add(0, new Weapon(playerTransform, bullet));
-        weapons.Add(1, new Weapon(playerTransform, bullet));
+
+        var weapon = ScriptableObject.CreateInstance<Weapon>();
+        weapon.Init(playerTransform, bullet);
+
+        var weapon2 = ScriptableObject.CreateInstance<Weapon>();
+        weapon2.Init(playerTransform, bullet);
+
+        weapons.Add(0, weapon);
+        weapons.Add(1, weapon2);
 
         shields = new Dictionary<int, Shield>();
 
-        shields.Add(0, new Shield(playerTransform, shield));
-        shields.Add(1, new Shield(playerTransform, shield));
-
+        var shield1 = ScriptableObject.CreateInstance<Shield>();
+        shield1.Init(playerTransform, shield);
+        shields.Add(0, shield1);
 
     }
 
@@ -88,10 +94,11 @@ public class PlayerController_MVP : MonoBehaviour
 
         if (engine.isThrusting)
         {
-            GetComponent<Rigidbody>().velocity = (movement * speed * Engine.THRUST_POWER)/ P1_shipmass;
-        } else
+            GetComponent<Rigidbody>().velocity = (movement * speed * Engine.THRUST_POWER) / P1_shipmass;
+        }
+        else
         {
-            GetComponent<Rigidbody>().velocity = (movement * speed)/P1_shipmass;
+            GetComponent<Rigidbody>().velocity = (movement * speed) / P1_shipmass;
         }
 
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
@@ -120,22 +127,27 @@ public class PlayerController_MVP : MonoBehaviour
     void checkFire_W1()
     {
         if (Input.GetButton("P1_Fire1"))
-            Console.WriteLine("P1_Fire1");
+        {
             weapons[this.currentPrimaryWeapon].Fire();
+        }
     }
 
     void checkFire_W2()
     {
         if (Input.GetButton("P1_Fire2"))
-            Console.WriteLine("P1_Fire1");
-        weapons[this.currentSecondaryWeapon].Fire();
+        {
+            weapons[this.currentSecondaryWeapon].Fire();
+        }
+
     }
 
     void checkShield()
     {
         if (Input.GetButton("P1_Shield"))
-            Console.WriteLine("P1_Fire1");
-        shields[this.currentPrimaryShield].Fire();
+        {
+            shields[this.currentPrimaryShield].Fire();
+        }
+
     }
     void checkEngine()
     {
@@ -145,4 +157,3 @@ public class PlayerController_MVP : MonoBehaviour
     {
     }
 }
- 

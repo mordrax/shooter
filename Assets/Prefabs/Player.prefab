@@ -197,8 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tilt: 0
-  P1_firerate_W1: 2
-  P1_firerate_W2: 2
+  P1_firerate_W1: 0
+  P1_firerate_W2: 0
   P1_shieldrate: 3
   P1_shipmass: 1
   playerTransform: {fileID: 487514}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8a7184cd55615439807630a134a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireRate: 0.5
+  Cooldown: 2
   origin: {fileID: 487514}
   bullet: {fileID: 199242, guid: bd935fc8c79d42f44bbd117cde2e939d, type: 2}
 --- !u!198 &19827238
