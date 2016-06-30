@@ -228,8 +228,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shFireRate: 2
   shDuration: 1
+  shLastFire: 0
   origin: {fileID: 487514}
-  shield: {fileID: 134176, guid: ad905013dd38b094e98928807112ced1, type: 2}
+  PrefabShield: {fileID: 134176, guid: ad905013dd38b094e98928807112ced1, type: 2}
 --- !u!114 &11466590
 MonoBehaviour:
   m_ObjectHideFlags: 1

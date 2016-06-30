@@ -46,7 +46,6 @@ public class PlayerController_MVP : MonoBehaviour
     Dictionary<int, Weapon> weapons;
     Dictionary<int, Shield> shields;
 
-
     // Use this for initialization
     void Start()
     {
@@ -67,6 +66,7 @@ public class PlayerController_MVP : MonoBehaviour
 
         var shield1 = ScriptableObject.CreateInstance<Shield>();
         shield1.Init(playerTransform, shield);
+
         shields.Add(0, shield1);
 
     }
@@ -144,12 +144,20 @@ public class PlayerController_MVP : MonoBehaviour
 
     void checkShield()
     {
+        Debug.LogFormat("{0}, {1}", shields[this.currentPrimaryShield], shield);
+        if (shield != null)
+        {
+            shields[this.currentPrimaryShield].checkShieldDestroy();
+            return;
+        }
+
         if (Input.GetButton("P1_Shield"))
         {
             shields[this.currentPrimaryShield].Fire();
         }
 
     }
+
     void checkEngine()
     {
 
@@ -157,4 +165,5 @@ public class PlayerController_MVP : MonoBehaviour
     void checkSwitch()
     {
     }
+              
 }

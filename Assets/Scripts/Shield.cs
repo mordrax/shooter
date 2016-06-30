@@ -6,36 +6,36 @@ public class Shield : ScriptableObject
 
     public float shFireRate = 2;
     public float shDuration = 1;
+    public float shLastFire = 0;
 
-    float shLastFire;
     public Transform origin;
-    public GameObject shield;
+    public GameObject PrefabShield;
 
     
     public void Fire()
     {
-        Debug.LogFormat("LastFire({0}) Time({1})", shLastFire, Time.time);
         var shieldReady = shLastFire + shFireRate;
 
         if (shieldReady >= Time.time)
             return;
 
-        Instantiate(shield, origin.position, origin.rotation);
-        shLastFire = Time.time;
+        Instantiate(PrefabShield, origin.position, origin.rotation);
+        shLastFire = Time.time;  
 
+    }
 
-        while (shLastFire - shDuration < shLastFire)
+    public void checkShieldDestroy()
+    {
+        if (shLastFire - shDuration > shLastFire)
         {
-            // this
+            Destroy(this);
         }
-
-        Destroy(shield);
     }
 
     internal void Init(Transform playerTransform, GameObject shield)
     {
         this.origin = playerTransform;
-        this.shield = shield;
+        this.PrefabShield = shield;
         shLastFire = Time.time;
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - 135: {fileID: 13596830}
   - 23: {fileID: 2309596}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Prefab_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,8 +85,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shFireRate: 2
   shDuration: 1
+  shLastFire: 0
   origin: {fileID: 0}
-  shield: {fileID: 134176}
+  PrefabShield: {fileID: 0}
 --- !u!135 &13596830
 SphereCollider:
   m_ObjectHideFlags: 1
