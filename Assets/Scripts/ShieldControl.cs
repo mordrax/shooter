@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ship_Stats : MonoBehaviour {
+public class ShieldControl : MonoBehaviour {
 
 	// Use this for initialization
-	void Start ()
-    {
-	    
+	void Start () {
+	
 	}
 	
 	// Update is called once per frame
-	void Update ()
-    {
-	    
+	void Update () {
+	
 	}
 }

@@ -49,7 +49,6 @@ public class PlayerController_MVP : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         engine = new Engine();
         weapons = new Dictionary<int, Weapon>();
 
@@ -144,18 +143,16 @@ public class PlayerController_MVP : MonoBehaviour
 
     void checkShield()
     {
-        Debug.LogFormat("{0}, {1}", shields[this.currentPrimaryShield], shield);
-        if (shield != null)
+        if (shields.ContainsKey(this.currentPrimaryShield))
         {
-            shields[this.currentPrimaryShield].checkShieldDestroy();
-            return;
+            shields[this.currentPrimaryShield].checkShieldDestroy(playerTransform);
         }
+            
 
         if (Input.GetButton("P1_Shield"))
         {
             shields[this.currentPrimaryShield].Fire();
         }
-
     }
 
     void checkEngine()

@@ -4,14 +4,21 @@ using UnityEngine;
 public class Shield : ScriptableObject
 {
 
-    public float shFireRate = 2;
-    public float shDuration = 1;
-    public float shLastFire = 0;
+    public float shFireRate;
+    public float shDuration = 3;
+    public float shLastFire;
+    
 
     public Transform origin;
     public GameObject PrefabShield;
+    private UnityEngine.Object shield;
+    private GameObject parent;
 
-    
+    void Start()
+    {
+        
+    }
+
     public void Fire()
     {
         var shieldReady = shLastFire + shFireRate;
@@ -19,23 +26,30 @@ public class Shield : ScriptableObject
         if (shieldReady >= Time.time)
             return;
 
-        Instantiate(PrefabShield, origin.position, origin.rotation);
-        shLastFire = Time.time;  
+        shield = Instantiate(PrefabShield, origin.position, origin.rotation);
+        shLastFire = Time.time;
 
     }
 
-    public void checkShieldDestroy()
+    public void checkShieldDestroy(Transform player)
     {
-        if (shLastFire - shDuration > shLastFire)
+        if (shield != null)
         {
-            Destroy(this);
+            shield.transform.parent = player;
+        }
+
+        var timeSinceLastFire = Time.time - shLastFire;
+        if (timeSinceLastFire > shDuration) 
+        {
+            Destroy(shield);
         }
     }
 
-    internal void Init(Transform playerTransform, GameObject shield)
+    internal void Init(Transform parent, GameObject shield)
     {
-        this.origin = playerTransform;
+        this.origin = parent;
         this.PrefabShield = shield;
+        
         shLastFire = Time.time;
     }
 }
